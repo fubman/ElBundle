@@ -158,6 +158,11 @@
                     var ultText = timeR <= 0
                         ? "READY"
                         : (timeR < 10 ? timeR.ToString("N1") : ((int) timeR).ToString());
+                    
+                    if (hero.Spellbook.GetSpell(SpellSlot.R).Level == 0)
+                    {
+                        ultText = "N/A";
+                    }
 
                     championInfo += $" - R: {ultText}";
                 }
