@@ -3,10 +3,13 @@
     using System;
     using System.Drawing;
     using System.Linq;
+
     using LeagueSharp;
     using LeagueSharp.Common;
+
     using SharpDX;
     using SharpDX.Direct3D9;
+
     using Color = System.Drawing.Color;
     using Font = SharpDX.Direct3D9.Font;
 
@@ -76,8 +79,8 @@
         {
             var predicate = new Func<Menu, bool>(x => x.Name == "Trackers");
             var menu = rootMenu.Children.Any(predicate)
-                ? rootMenu.Children.First(predicate)
-                : rootMenu.AddSubMenu(new Menu("Trackers", "Trackers"));
+                           ? rootMenu.Children.First(predicate)
+                           : rootMenu.AddSubMenu(new Menu("Trackers", "Trackers"));
 
             var enemySidebarMenu =
                 menu.AddSubMenu(new Menu("Health tracker", "healthenemies"))
@@ -97,7 +100,7 @@
                 enemySidebarMenu.AddItem(new MenuItem("FontSize", "Font size").SetValue(new Slider(15, 13, 30)));
 
                 enemySidebarMenu.AddItem(new MenuItem("Health.Version", "Display options: "))
-                    .SetValue(new StringList(new[] {"Compact", "Clean",}));
+                    .SetValue(new StringList(new[] { "Compact", "Clean", }));
             }
 
             this.Menu = menu;
@@ -109,14 +112,12 @@
         public void Load()
         {
             Font = new Font(
-                Drawing.Direct3DDevice,
-                new FontDescription
-                {
-                    FaceName = "Tahoma",
-                    Height = this.Menu.Item("FontSize").GetValue<Slider>().Value,
-                    OutputPrecision = FontPrecision.Default,
-                    Quality = FontQuality.Antialiased
-                });
+                       Drawing.Direct3DDevice,
+                       new FontDescription
+                           {
+                               FaceName = "Tahoma", Height = this.Menu.Item("FontSize").GetValue<Slider>().Value,
+                               OutputPrecision = FontPrecision.Default, Quality = FontQuality.Antialiased
+                           });
 
             Drawing.OnEndScene += this.Drawing_OnEndScene;
             Drawing.OnPreReset += args => { Font.OnLostDevice(); };
@@ -149,16 +150,16 @@
                 }
 
                 var championInfo = this.Menu.Item("DrawHealth_percent").IsActive()
-                    ? $"{champion} ({(int) hero.HealthPercent}%)"
-                    : champion;
+                                       ? $"{champion} ({(int)hero.HealthPercent}%)"
+                                       : champion;
 
                 if (this.Menu.Item("DrawHealth_ultimate").IsActive())
                 {
                     var timeR = hero.Spellbook.GetSpell(SpellSlot.R).CooldownExpires - Game.Time;
                     var ultText = timeR <= 0
-                        ? "READY"
-                        : (timeR < 10 ? timeR.ToString("N1") : ((int) timeR).ToString());
-                    
+                                      ? "READY"
+                                      : (timeR < 10 ? timeR.ToString("N1") : ((int)timeR).ToString()) + "s";
+
                     if (hero.Spellbook.GetSpell(SpellSlot.R).Level == 0)
                     {
                         ultText = "N/A";
@@ -182,8 +183,8 @@
 
                     DrawRect(
                         Drawing.Width - this.HudOffsetRight + 2,
-                        this.HudOffsetTop + i - (-2),
-                        hero.HealthPercent <= 0 ? 100 : (int) (hero.HealthPercent)*2 - 4,
+                        this.HudOffsetTop + i - -2,
+                        hero.HealthPercent <= 0 ? 100 : (int)hero.HealthPercent * 2 - 4,
                         Height - 4,
                         1,
                         hero.HealthPercent < 30 && hero.HealthPercent > 0
@@ -196,13 +197,9 @@
                     Font.DrawText(
                         null,
                         championInfo,
-                        (int)
-                        ((Drawing.Width - this.HudOffsetRight)
-                         - Font.MeasureText(null, championInfo).Width/2f) + 200/2,
-                        (int)
-                        (this.HudOffsetTop + i + 13
-                         - Font.MeasureText(null, championInfo).Height
-                         /2f),
+                        (int)(Drawing.Width - this.HudOffsetRight - Font.MeasureText(null, championInfo).Width / 2f)
+                        + 200 / 2,
+                        (int)(this.HudOffsetTop + i + 13 - Font.MeasureText(null, championInfo).Height / 2f),
                         new ColorBGRA(255, 255, 255, 175));
                 }
                 else
@@ -211,12 +208,9 @@
                     Font.DrawText(
                         null,
                         championInfo,
-                        (int)
-                        ((Drawing.Width - this.HudOffsetRight - this.HudOffsetText
-                          - Font.MeasureText(null, championInfo).Width)),
-                        (int)
-                        (this.HudOffsetTop + i + 4
-                         - Font.MeasureText(null, championInfo).Height/2f),
+                        Drawing.Width - this.HudOffsetRight - this.HudOffsetText
+                        - Font.MeasureText(null, championInfo).Width,
+                        (int)(this.HudOffsetTop + i + 4 - Font.MeasureText(null, championInfo).Height / 2f),
                         hero.HealthPercent > 0 ? new ColorBGRA(255, 255, 255, 255) : new ColorBGRA(244, 8, 8, 255));
 
                     // Draws the rectangle
@@ -232,7 +226,7 @@
                     DrawRect(
                         Drawing.Width - this.HudOffsetRight,
                         this.HudOffsetTop + i,
-                        hero.HealthPercent <= 0 ? 100 : (int) (hero.HealthPercent),
+                        hero.HealthPercent <= 0 ? 100 : (int)hero.HealthPercent,
                         this.BarHeight,
                         1,
                         hero.HealthPercent < 30 && hero.HealthPercent > 0
@@ -243,8 +237,7 @@
                 }
 
                 i += 20f
-                     +
-                     (this.Menu.Item("Health.Version").GetValue<StringList>().SelectedIndex == 1 ? 5 : this.HudSpacing);
+                     + (this.Menu.Item("Health.Version").GetValue<StringList>().SelectedIndex == 1 ? 5 : this.HudSpacing);
             }
         }
 
