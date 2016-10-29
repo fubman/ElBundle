@@ -79,13 +79,7 @@ namespace ElEasy.Plugins
         /// <value>
         ///     The player.
         /// </value>
-        private Obj_AI_Hero Player
-        {
-            get
-            {
-                return ObjectManager.Player;
-            }
-        }
+        private Obj_AI_Hero Player => ObjectManager.Player;
 
         #endregion
 
@@ -450,7 +444,7 @@ namespace ElEasy.Plugins
                     && hero.IsValidTarget(spells[Spells.E].Range))
                 {
                     this.CastE(hero);
-                    if (spells[Spells.W].IsInRange(hero))
+                    if (hero.IsValidTarget(spells[Spells.W].Range))
                     {
                         spells[Spells.W].Cast();
                     }
@@ -460,14 +454,21 @@ namespace ElEasy.Plugins
                     && hero.IsValidTarget(spells[Spells.E].Range))
                 {
                     this.CastE(hero);
-                    spells[Spells.Q].Cast(hero);
+                    if (hero.IsValidTarget(spells[Spells.Q].Range))
+                    {
+                        spells[Spells.Q].CastOnUnit(hero);
+                    }
                 }
 
                 if (hero.Health - edmg - wdmg - qdmg < 0 && spells[Spells.E].IsReady() && spells[Spells.Q].IsReady()
                     && spells[Spells.W].IsReady() && hero.IsValidTarget(spells[Spells.E].Range))
                 {
                     this.CastE(hero);
-                    spells[Spells.Q].Cast(hero);
+                    if (hero.IsValidTarget(spells[Spells.Q].Range))
+                    {
+                        spells[Spells.Q].CastOnUnit(hero);
+                    }
+
                     if (hero.IsValidTarget(spells[Spells.W].Range))
                     {
                         spells[Spells.W].Cast();
@@ -479,7 +480,11 @@ namespace ElEasy.Plugins
                     && hero.IsValidTarget(spells[Spells.E].Range))
                 {
                     this.CastE(hero);
-                    spells[Spells.Q].Cast(hero);
+                    if (hero.IsValidTarget(spells[Spells.Q].Range))
+                    {
+                        spells[Spells.Q].CastOnUnit(hero);
+                    }
+
                     if (hero.IsValidTarget(spells[Spells.W].Range))
                     {
                         spells[Spells.W].Cast();
@@ -491,11 +496,17 @@ namespace ElEasy.Plugins
                     && hero.IsValidTarget(spells[Spells.E].Range))
                 {
                     this.CastE(hero);
-                    spells[Spells.Q].Cast(hero);
+                    if (hero.IsValidTarget(spells[Spells.Q].Range))
+                    {
+                        spells[Spells.Q].CastOnUnit(hero);
+                    }
                     if (hero.IsValidTarget(spells[Spells.W].Range))
                     {
                         spells[Spells.W].Cast();
-                        this.Player.Spellbook.CastSpell(Ignite, hero);
+                        if (hero.IsValidTarget(600))
+                        {
+                            this.Player.Spellbook.CastSpell(Ignite, hero);
+                        }
                     }
                 }
             }
@@ -541,7 +552,7 @@ namespace ElEasy.Plugins
             var useQ = this.Menu.Item("ElEasy.Katarina.AutoHarass.Q").IsActive();
             var useW = this.Menu.Item("ElEasy.Katarina.AutoHarass.W").IsActive();
 
-            if (useQ && spells[Spells.Q].IsReady() && target.IsValidTarget())
+            if (useQ && spells[Spells.Q].IsReady() && target.IsValidTarget(spells[Spells.Q].Range))
             {
                 spells[Spells.Q].Cast(target);
             }
@@ -760,10 +771,6 @@ namespace ElEasy.Plugins
 
         private void OnLaneclear()
         {
-            var useQ = this.Menu.Item("ElEasy.Katarina.LaneClear.Q").IsActive();
-            var useW = this.Menu.Item("ElEasy.Katarina.LaneClear.W").IsActive();
-            var useE = this.Menu.Item("ElEasy.Katarina.LaneClear.E").IsActive();
-
             var minions =
                 MinionManager.GetMinions(ObjectManager.Player.ServerPosition, spells[Spells.E].Range).FirstOrDefault();
 
@@ -772,7 +779,7 @@ namespace ElEasy.Plugins
                 return;
             }
 
-            if (spells[Spells.W].IsReady() && useW)
+            if (spells[Spells.W].IsReady() && this.Menu.Item("ElEasy.Katarina.LaneClear.W").IsActive() && minions.IsValidTarget(spells[Spells.W].Range))
             {
                 if (minions.Health < spells[Spells.W].GetDamage(minions))
                 {
@@ -780,7 +787,7 @@ namespace ElEasy.Plugins
                 }
             }
 
-            if (spells[Spells.Q].IsReady() && useQ)
+            if (spells[Spells.Q].IsReady() && this.Menu.Item("ElEasy.Katarina.LaneClear.Q").IsActive() && minions.IsValidTarget(spells[Spells.Q].Range))
             {
                 if (minions.Health < spells[Spells.Q].GetDamage(minions))
                 {
@@ -788,7 +795,7 @@ namespace ElEasy.Plugins
                 }
             }
 
-            if (spells[Spells.E].IsReady() && useE)
+            if (spells[Spells.E].IsReady() && this.Menu.Item("ElEasy.Katarina.LaneClear.E").IsActive() && minions.IsValidTarget(spells[Spells.E].Range))
             {
                 if (minions.Health < spells[Spells.E].GetDamage(minions))
                 {
@@ -799,10 +806,6 @@ namespace ElEasy.Plugins
 
         private void OnLasthit()
         {
-            var useQ = this.Menu.Item("ElEasy.Katarina.Lasthit.Q").IsActive();
-            var useW = this.Menu.Item("ElEasy.Katarina.Lasthit.W").IsActive();
-            var useE = this.Menu.Item("ElEasy.Katarina.Lasthit.E").IsActive();
-
             var minions =
                 MinionManager.GetMinions(ObjectManager.Player.ServerPosition, spells[Spells.E].Range).FirstOrDefault();
 
@@ -811,7 +814,7 @@ namespace ElEasy.Plugins
                 return;
             }
 
-            if (spells[Spells.W].IsReady() && useW)
+            if (spells[Spells.W].IsReady() && this.Menu.Item("ElEasy.Katarina.Lasthit.W").IsActive() && minions.IsValidTarget(spells[Spells.W].Range))
             {
                 if (minions.Health < spells[Spells.W].GetDamage(minions))
                 {
@@ -819,7 +822,7 @@ namespace ElEasy.Plugins
                 }
             }
 
-            if (spells[Spells.Q].IsReady() && useQ)
+            if (spells[Spells.Q].IsReady() && this.Menu.Item("ElEasy.Katarina.Lasthit.Q").IsActive() && minions.IsValidTarget(spells[Spells.Q].Range))
             {
                 if (minions.Health < spells[Spells.Q].GetDamage(minions))
                 {
@@ -827,7 +830,7 @@ namespace ElEasy.Plugins
                 }
             }
 
-            if (spells[Spells.E].IsReady() && useE)
+            if (spells[Spells.E].IsReady() && this.Menu.Item("ElEasy.Katarina.Lasthit.E").IsActive() && minions.IsValidTarget(spells[Spells.E].Range))
             {
                 if (minions.Health < spells[Spells.E].GetDamage(minions))
                 {
