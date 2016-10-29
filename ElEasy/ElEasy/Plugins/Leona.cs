@@ -260,7 +260,7 @@
                 var pred = spells[Spells.R].GetPrediction(target);
                 if (pred.Hitchance >= HitChance.VeryHigh)
                 {
-                    spells[Spells.R].CastIfHitchanceEquals(target, HitChance.Immobile);
+                    spells[Spells.R].CastIfHitchanceEquals(target, HitChance.VeryHigh);
                 }
             }
 
