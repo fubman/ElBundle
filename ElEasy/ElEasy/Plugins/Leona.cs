@@ -236,7 +236,10 @@
                 if (spells[Spells.Q].IsReady() && !target.HasBuff("BlackShield") || !target.HasBuff("SivirShield")
                     || !target.HasBuff("BansheesVeil") || !target.HasBuff("ShroudofDarkness"))
                 {
-                    spells[Spells.Q].Cast();
+                    if (target.IsValidTarget(Orbwalking.GetRealAutoAttackRange(ObjectManager.Player)))
+                    {
+                        spells[Spells.Q].Cast();
+                    }
                 }
             }
 
