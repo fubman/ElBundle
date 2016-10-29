@@ -78,9 +78,9 @@
         public void CreateMenu(Menu rootMenu)
         {
             var predicate = new Func<Menu, bool>(x => x.Name == "Trackers");
-            var menu = !rootMenu.Children.Any(predicate)
-                           ? rootMenu.AddSubMenu(new Menu("Trackers", "Trackers"))
-                           : rootMenu.Children.First(predicate);
+            var menu = rootMenu.Children.Any(predicate)
+                           ? rootMenu.Children.First(predicate)
+                           : rootMenu.AddSubMenu(new Menu("Trackers", "Trackers"));
 
             var enemySidebarMenu =
                 menu.AddSubMenu(new Menu("Health tracker", "healthenemies"))
@@ -90,7 +90,7 @@
                 enemySidebarMenu.AddItem(new MenuItem("DrawHealth_percent", "Champion health %").SetValue(true));
                 enemySidebarMenu.AddItem(new MenuItem("DrawHealth_ultimate", "Champion ultimate").SetValue(true));
                 enemySidebarMenu.AddItem(
-                    new MenuItem("HealthTracker.OffsetText", "Offset Text").SetValue(new Slider(30, 0, 100)));
+                    new MenuItem("HealthTracker.OffsetText", "Offset Text").SetValue(new Slider(30)));
                 enemySidebarMenu.AddItem(
                     new MenuItem("HealthTracker.OffsetTop", "Offset Top").SetValue(new Slider(75, 0, 1500)));
                 enemySidebarMenu.AddItem(
@@ -100,7 +100,7 @@
                 enemySidebarMenu.AddItem(new MenuItem("FontSize", "Font size").SetValue(new Slider(15, 13, 30)));
 
                 enemySidebarMenu.AddItem(new MenuItem("Health.Version", "Display options: "))
-                    .SetValue(new StringList(new[] { "Compact", "Clean", }, 0));
+                    .SetValue(new StringList(new[] { "Compact", "Clean", }));
             }
 
             this.Menu = menu;
@@ -112,12 +112,12 @@
         public void Load()
         {
             Font = new Font(
-                Drawing.Direct3DDevice,
-                new FontDescription
-                    {
-                        FaceName = "Tahoma", Height = this.Menu.Item("FontSize").GetValue<Slider>().Value,
-                        OutputPrecision = FontPrecision.Default, Quality = FontQuality.Antialiased
-                    });
+                       Drawing.Direct3DDevice,
+                       new FontDescription
+                           {
+                               FaceName = "Tahoma", Height = this.Menu.Item("FontSize").GetValue<Slider>().Value,
+                               OutputPrecision = FontPrecision.Default, Quality = FontQuality.Antialiased
+                           });
 
             Drawing.OnEndScene += this.Drawing_OnEndScene;
             Drawing.OnPreReset += args => { Font.OnLostDevice(); };
@@ -157,8 +157,13 @@
                 {
                     var timeR = hero.Spellbook.GetSpell(SpellSlot.R).CooldownExpires - Game.Time;
                     var ultText = timeR <= 0
-                        ? "READY"
-                        : (timeR < 10 ? timeR.ToString("N1") : ((int)timeR).ToString());
+                                      ? "READY"
+                                      : (timeR < 10 ? timeR.ToString("N1") : ((int)timeR).ToString()) + "s";
+
+                    if (hero.Spellbook.GetSpell(SpellSlot.R).Level == 0)
+                    {
+                        ultText = "N/A";
+                    }
 
                     championInfo += $" - R: {ultText}";
                 }
@@ -166,8 +171,9 @@
                 if (this.Menu.Item("Health.Version").GetValue<StringList>().SelectedIndex == 1)
                 {
                     const int Height = 25;
+
                     // Draws the rectangle
-                    this.DrawRect(
+                    DrawRect(
                         Drawing.Width - this.HudOffsetRight,
                         this.HudOffsetTop + i,
                         200,
@@ -175,29 +181,25 @@
                         1,
                         Color.FromArgb(175, 51, 55, 51));
 
-                        this.DrawRect(
-                            Drawing.Width - this.HudOffsetRight + 2,
-                            this.HudOffsetTop + i - (-2),
-                            hero.HealthPercent <= 0 ? 100 : (int)(hero.HealthPercent) * 2 - 4,
-                            Height - 4,
-                            1,
-                            hero.HealthPercent < 30 && hero.HealthPercent > 0
-                                ? Color.FromArgb(255, 250, 0, 23)
-                                : hero.HealthPercent < 50
-                                      ? Color.FromArgb(255, 230, 169, 14)
-                                      : Color.FromArgb(255, 2, 157, 10));
+                    DrawRect(
+                        Drawing.Width - this.HudOffsetRight + 2,
+                        this.HudOffsetTop + i - -2,
+                        hero.HealthPercent <= 0 ? 100 : (int)hero.HealthPercent * 2 - 4,
+                        Height - 4,
+                        1,
+                        hero.HealthPercent < 30 && hero.HealthPercent > 0
+                            ? Color.FromArgb(255, 250, 0, 23)
+                            : hero.HealthPercent < 50
+                                ? Color.FromArgb(255, 230, 169, 14)
+                                : Color.FromArgb(255, 2, 157, 10));
 
                     // Draws the championnames
                     Font.DrawText(
                         null,
                         championInfo,
-                        (int)
-                        ((Drawing.Width - this.HudOffsetRight)
-                          - Font.MeasureText(null, championInfo).Width /2f) + 200 / 2,
-                        (int)
-                        (this.HudOffsetTop + i + 13
-                         - Font.MeasureText(null, championInfo).Height
-                         / 2f),
+                        (int)(Drawing.Width - this.HudOffsetRight - Font.MeasureText(null, championInfo).Width / 2f)
+                        + 200 / 2,
+                        (int)(this.HudOffsetTop + i + 13 - Font.MeasureText(null, championInfo).Height / 2f),
                         new ColorBGRA(255, 255, 255, 175));
                 }
                 else
@@ -206,16 +208,13 @@
                     Font.DrawText(
                         null,
                         championInfo,
-                        (int)
-                        ((Drawing.Width - this.HudOffsetRight - this.HudOffsetText
-                          - Font.MeasureText(null, championInfo).Width)),
-                        (int)
-                        (this.HudOffsetTop + i + 4
-                         - Font.MeasureText(null, championInfo).Height / 2f),
+                        Drawing.Width - this.HudOffsetRight - this.HudOffsetText
+                        - Font.MeasureText(null, championInfo).Width,
+                        (int)(this.HudOffsetTop + i + 4 - Font.MeasureText(null, championInfo).Height / 2f),
                         hero.HealthPercent > 0 ? new ColorBGRA(255, 255, 255, 255) : new ColorBGRA(244, 8, 8, 255));
 
                     // Draws the rectangle
-                    this.DrawRect(
+                    DrawRect(
                         Drawing.Width - this.HudOffsetRight,
                         this.HudOffsetTop + i,
                         100,
@@ -224,17 +223,17 @@
                         Color.FromArgb(255, 51, 55, 51));
 
                     // Fils the rectangle
-                    this.DrawRect(
+                    DrawRect(
                         Drawing.Width - this.HudOffsetRight,
                         this.HudOffsetTop + i,
-                        hero.HealthPercent <= 0 ? 100 : (int)(hero.HealthPercent),
+                        hero.HealthPercent <= 0 ? 100 : (int)hero.HealthPercent,
                         this.BarHeight,
                         1,
                         hero.HealthPercent < 30 && hero.HealthPercent > 0
                             ? Color.FromArgb(255, 250, 0, 23)
                             : hero.HealthPercent < 50
-                                  ? Color.FromArgb(255, 230, 169, 14)
-                                  : Color.FromArgb(255, 2, 157, 10));
+                                ? Color.FromArgb(255, 230, 169, 14)
+                                : Color.FromArgb(255, 2, 157, 10));
                 }
 
                 i += 20f
@@ -251,7 +250,7 @@
         /// <param name="height"></param>
         /// <param name="thickness"></param>
         /// <param name="color"></param>
-        private void DrawRect(float x, float y, int width, float height, float thickness, Color color)
+        private static void DrawRect(float x, float y, int width, float height, float thickness, Color color)
         {
             for (var i = 0; i < height; i++)
             {
