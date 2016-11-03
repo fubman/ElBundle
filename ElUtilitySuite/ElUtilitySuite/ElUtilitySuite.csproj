@@ -37,21 +37,24 @@
     <LangVersion>6</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="clipper_library">
+      <HintPath>C:\Program Files (x86)\NrvEgGHwxLo\References\clipper_library.dll</HintPath>
+    </Reference>
     <Reference Include="LeagueSharp">
-      <HintPath>C:\Program Files (x86)\2bScOWoCt\References\LeagueSharp.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\NrvEgGHwxLo\References\LeagueSharp.dll</HintPath>
     </Reference>
     <Reference Include="LeagueSharp.Common">
-      <HintPath>C:\Program Files (x86)\2bScOWoCt\References\LeagueSharp.Common.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\NrvEgGHwxLo\References\LeagueSharp.Common.dll</HintPath>
     </Reference>
     <Reference Include="LeagueSharp.Data">
       <HintPath>C:\Program Files (x86)\NrvEgGHwxLo\References\LeagueSharp.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="SharpDX">
-      <HintPath>C:\Program Files (x86)\2bScOWoCt\References\SharpDX.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\NrvEgGHwxLo\References\SharpDX.dll</HintPath>
     </Reference>
     <Reference Include="SharpDX.Direct3D9">
-      <HintPath>C:\Program Files (x86)\2bScOWoCt\References\SharpDX.Direct3D9.dll</HintPath>
+      <HintPath>C:\Program Files (x86)\NrvEgGHwxLo\References\SharpDX.Direct3D9.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -66,6 +69,7 @@
     <Compile Include="Trackers\SpellCountdownTracker.cs" />
     <Compile Include="Trackers\SpellTracker1.cs" />
     <Compile Include="Trackers\WardTracker.cs" />
+    <Compile Include="Utility\TurretDamageIndicator.cs" />
     <Compile Include="Vendor\SFX\BitmapExtensions.cs" />
     <Compile Include="Vendor\SFX\FloatExtensions.cs" />
     <Compile Include="Vendor\SFX\FontExtension.cs" />
