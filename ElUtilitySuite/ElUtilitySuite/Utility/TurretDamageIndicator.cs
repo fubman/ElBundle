@@ -11,17 +11,9 @@
     ///     Indiciates the tower damage that will be done onto the player.
     /// </summary>
     /// <seealso cref="ElUtilitySuite.IPlugin" />
-    internal class TurretDamageIndicator// : IPlugin
+    internal class TurretDamageIndicator // : IPlugin
     {
         #region Properties
-
-        /// <summary>
-        ///     Gets or sets the menu.
-        /// </summary>
-        /// <value>
-        ///     The menu.
-        /// </value>
-        private Menu Menu { get; set; }
 
         /// <summary>
         ///     Gets the player.
@@ -30,6 +22,14 @@
         ///     The player.
         /// </value>
         private static Obj_AI_Hero Player => ObjectManager.Player;
+
+        /// <summary>
+        ///     Gets or sets the menu.
+        /// </summary>
+        /// <value>
+        ///     The menu.
+        /// </value>
+        private Menu Menu { get; set; }
 
         #endregion
 
@@ -71,8 +71,10 @@
         {
             if (!this.Menu.Item("Enabled").IsActive()
                 || !ObjectManager.Get<Obj_AI_Turret>()
-                    .Any(x => x.Distance(Player) < this.Menu.Item("Distance").GetValue<Slider>().Value)
-                || !Player.IsHPBarRendered || !Player.IsValid)
+                    .Any(
+                        x =>
+                            x.Distance(Player) < this.Menu.Item("Distance").GetValue<Slider>().Value && x.IsEnemy
+                            && !x.IsDead && x.IsValid) || !Player.IsHPBarRendered || !Player.IsValid)
             {
                 return;
             }
@@ -92,7 +94,10 @@
                 return;
             }
 
-            var turret = ObjectManager.Get<Obj_AI_Turret>().OrderBy(x => x.Distance(Player)).First();
+            var turret =
+                ObjectManager.Get<Obj_AI_Turret>()
+                    .OrderBy(x => x.Distance(Player))
+                    .First(x => x.IsEnemy && !x.IsDead && x.IsValid);
             var damage = turret.CalcDamage(Player, Damage.DamageType.Physical, turret.TotalAttackDamage);
 
             var percentHealthAfterDamage = Math.Max(0, Player.Health - damage) / Player.MaxHealth;
