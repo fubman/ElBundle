@@ -98,7 +98,7 @@
                 ObjectManager.Get<Obj_AI_Turret>()
                     .OrderBy(x => x.Distance(Player))
                     .First(x => x.IsEnemy && !x.IsDead && x.IsValid);
-            var damage = turret.CalcDamage(Player, Damage.DamageType.Physical, turret.TotalAttackDamage);
+            var damage = turret.GetAutoAttackDamage(Player, true);
 
             var percentHealthAfterDamage = Math.Max(0, Player.Health - damage) / Player.MaxHealth;
             var xPos = (float)(barPos.X + 10 + 103 * percentHealthAfterDamage);
