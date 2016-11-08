@@ -17,7 +17,8 @@
 
         private readonly List<SpellInfo> _spellInfos = new List<SpellInfo>
         {
-            new SpellInfo("Cassiopeia", "CassiopeiaR", 825f, false, true, 0.85f),
+            new SpellInfo("Cassiopeia", "CassiopeiaR", 1000f, false, true, 0.85f),
+            new SpellInfo("Cassiopeia", "cassiopeiapetrifyinggaze", 1000f, false, true, 0.85f),
             new SpellInfo("Tryndamere", "MockingShout", 900f, false, false, 0.65f)
         };
 
