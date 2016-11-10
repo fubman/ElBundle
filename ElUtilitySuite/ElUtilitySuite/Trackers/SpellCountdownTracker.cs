@@ -205,7 +205,7 @@
 
             JungleTracker.CampDied += this.JungleTrackerCampDied;
             Obj_AI_Base.OnTeleport += this.OnTeleport;
-            Obj_AI_Base.OnBuffRemove += this.OnBuffRemove;
+            //Obj_AI_Base.OnBuffRemove += this.OnBuffRemove;
 
             Drawing.OnPreReset += args =>
             {

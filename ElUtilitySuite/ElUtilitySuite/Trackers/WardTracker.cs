@@ -39,13 +39,14 @@
             new WardStruct( 60 * 3, 1100, "SightWard", "ItemGhostWard", WardType.Green),
             new WardStruct( 75 * 2, 1100, "SightWard", "SightWard", WardType.Green),
             new WardStruct( 60 * 3, 1100, "MissileWard", "MissileWard", WardType.Green),
-            new WardStruct( int.MaxValue, 1100, "VisionWard", "VisionWard", WardType.Pink),
+            //new WardStruct( int.MaxValue, 1100, "VisionWard", "VisionWard", WardType.Pink), // remove 6.22
             new WardStruct( 60 * 4, 212, "CaitlynTrap", "CaitlynYordleTrap", WardType.Trap),
             new WardStruct( 60 * 10, 212, "TeemoMushroom", "BantamTrap", WardType.Trap),
             new WardStruct( 60 * 1, 212, "ShacoBox", "JackInTheBox", WardType.Trap),
             new WardStruct( 60 * 2, 212, "Nidalee_Spear", "Bushwhack", WardType.Trap),
             new WardStruct( 60 * 10, 212, "Noxious_Trap", "BantamTrap", WardType.Trap),
-            new WardStruct( 120 * 1, 130, "jhintrap", "JhinE", WardType.Trap)
+            new WardStruct( 120 * 1, 130, "jhintrap", "JhinE", WardType.Trap),
+            new WardStruct(int.MaxValue, 900, "JammerDevice", "JammerDevice", WardType.Green), // add 6.22
         };
 
         private Texture _greenWardTexture;
@@ -374,20 +375,20 @@
                                 delegate
                                     {
                                         if (
-                                            !_wardObjects.Any(
+                                            !this._wardObjects.Any(
                                                 w =>
                                                 w.Position.To2D().Distance(sPos.To2D(), ePos.To2D(), false) < 300
                                                 && ((int)Game.Time - w.StartT < 2)))
                                         {
                                             var wObj = new WardObject(
-                                            GetWardStructForInvisible(sPos, ePos),
+                                            this.GetWardStructForInvisible(sPos, ePos),
                                             new Vector3(ePos.X, ePos.Y, NavMesh.GetHeightForPosition(ePos.X, ePos.Y)),
                                             (int)Game.Time, null, true,
                                             new Vector3(sPos.X, sPos.Y, NavMesh.GetHeightForPosition(sPos.X, sPos.Y)),
                                             missile.SpellCaster);
 
-                                            CheckDuplicateWards(wObj);
-                                            _wardObjects.Add(wObj);
+                                            this.CheckDuplicateWards(wObj);
+                                            this._wardObjects.Add(wObj);
                                         }
                                     });
                         }
@@ -398,12 +399,12 @@
                     var wardObject = sender as Obj_AI_Base;
                     if(wardObject != null && wardObject.IsValid && !wardObject.IsAlly)
                     {
-                        foreach (var ward in _wardStructs)
+                        foreach (var ward in this._wardStructs)
                         {
                             if (wardObject.CharData.BaseSkinName.Equals(
                                 ward.ObjectBaseSkinName, StringComparison.OrdinalIgnoreCase))
                             {
-                                _wardObjects.RemoveAll(
+                                this._wardObjects.RemoveAll(
                                     w =>
                                         w.Position.Distance(wardObject.Position) < 300 &&
                                         ((int)Game.Time - w.StartT < 0.5));
@@ -413,8 +414,8 @@
                                     new Vector3(wardObject.Position.X, wardObject.Position.Y, wardObject.Position.Z),
                                     (int)(Game.Time - (int)(wardObject.MaxMana - wardObject.Mana)), wardObject);
 
-                                CheckDuplicateWards(wObj);
-                                _wardObjects.Add(wObj);
+                                this.CheckDuplicateWards(wObj);
+                                this._wardObjects.Add(wObj);
                             }
                         }
                     }
