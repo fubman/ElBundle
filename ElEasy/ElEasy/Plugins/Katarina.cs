@@ -12,7 +12,7 @@ namespace ElEasy.Plugins
     using Color = System.Drawing.Color;
     using ItemData = LeagueSharp.Common.Data.ItemData;
 
-    public class Katarina : IPlugin
+    public class Katarina //: IPlugin
     {
         #region Static Fields
 
