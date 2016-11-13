@@ -6,6 +6,8 @@
     using System.Globalization;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
+
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -437,7 +439,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occurred: {e}");
+                Logging.AddEntry(LoggingEntryType.Error, "@Smite.cs: An error occurred: {0}", e);
+                throw;
             }
         }
 
@@ -453,7 +456,7 @@
                         x =>
                         x.ChampionName.Equals(this.Player.ChampionName, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    if (this.Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health && this.Player.Spellbook.GetSpell(spell.Slot).State == SpellState.Ready)
+                    if (this.Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health && !mob.CharData.BaseSkinName.ToLower().Contains("crab") && this.Player.Spellbook.GetSpell(spell.Slot).State == SpellState.Ready)
                     {
                         if (mob.IsValidTarget(this.SmiteSpell.Range))
                         {
@@ -475,7 +478,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occurred: {e}");
+                Logging.AddEntry(LoggingEntryType.Error, "@Smite.cs: An error occurred: {0}", e);
+                throw;
             }
         }
 
@@ -516,27 +520,15 @@
                             ObjectManager.Get<Obj_AI_Minion>()
                                 .Where(
                                     m =>
-                                    m.Team == GameObjectTeam.Neutral && m.IsValidTarget()   );
+                                    m.Team == GameObjectTeam.Neutral && m.IsValidTarget());
 
                         foreach (var minion in minions.Where(m => m.IsHPBarRendered))
                         {
                             var hpBarPosition = minion.HPBarPosition;
                             var maxHealth = minion.MaxHealth;
                             var sDamage = this.SmiteDamage();
-                            //SmiteDamage : MaxHealth = x : 100
-                            //Ratio math for this ^
                             var x = this.SmiteDamage() / maxHealth;
                             var barWidth = 0;
-
-                            /*
-                        * DON'T STEAL THE OFFSETS FOUND BY ASUNA DON'T STEAL THEM JUST GET OUT WTF MAN.
-                        * EL SMITE IS THE BEST SMITE ASSEMBLY ON LEAGUESHARP AND YOU WILL NOT FIND A BETTER ONE.
-                        * THE DRAWINGS ACTUALLY MAKE FUCKING SENSE AND THEY ARE FUCKING GOOD
-                        * GTFO HERE SERIOUSLY OR I CALL DETUKS FOR YOU GUYS
-                        * NO STEAL OR DMC FUCKING A REPORT.
-                        * HELLO COPYRIGHT BY ASUNA 2015 ALL AUSTRALIAN RIGHTS RESERVED BY UNIVERSAL GTFO SERIOUSLY THO
-                        * NO ALSO NO CREDITS JUST GET OUT DUDE GET OUTTTTTTTTTTTTTTTTTTTTTTT
-                        */
 
                             switch (minion.CharData.BaseSkinName)
                             {
@@ -703,7 +695,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occurred: {e}");
+                Logging.AddEntry(LoggingEntryType.Error, "@Smite.cs: An error occurred: {0}", e);
+                throw;
             }
         }
 
@@ -726,7 +719,7 @@
                     .Where(m => !m.Name.Contains("Mini") && !m.Name.Contains("Respawn")))
                 {
                     if (mob.Distance(this.Player, false) - (this.Player.BoundingRadius)
-                        > 500)
+                        > 520)
                     {
                         continue;
                     }
@@ -782,7 +775,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occurred: {e}");
+                Logging.AddEntry(LoggingEntryType.Error, "@Smite.cs: An error occurred: {0}", e);
+                throw;
             }
         }
 
@@ -796,10 +790,9 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine($"An error occurred: {e}");
+                Logging.AddEntry(LoggingEntryType.Error, "@Smite.cs: An error occurred: {0}", e);
+                throw;
             }
-
-            return 0;
         }
 
         #endregion

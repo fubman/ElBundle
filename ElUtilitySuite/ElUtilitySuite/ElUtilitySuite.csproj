@@ -65,6 +65,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Logging\Logging.cs" />
+    <Compile Include="Logging\LoggingEntryType.cs" />
     <Compile Include="Summoners\Cleanse2.cs" />
     <Compile Include="Trackers\SpellCountdownTracker.cs" />
     <Compile Include="Trackers\SpellTracker1.cs" />
@@ -88,7 +90,6 @@
     <Compile Include="Items\OffensiveItems\FrostQueen.cs" />
     <Compile Include="Items\OffensiveItems\Hextech.cs" />
     <Compile Include="Items\OffensiveItems\HextechGLP-800.cs" />
-    <Compile Include="Items\OffensiveItems\HextechProtobelt-01.cs" />
     <Compile Include="Items\OffensiveItems\Hydra.cs" />
     <Compile Include="Items\OffensiveItems\Tiamat.cs" />
     <Compile Include="Items\OffensiveItems\TitanicHydra.cs" />

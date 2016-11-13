@@ -11,7 +11,7 @@
     ///     Indiciates the tower damage that will be done onto the player.
     /// </summary>
     /// <seealso cref="ElUtilitySuite.IPlugin" />
-    internal class TurretDamageIndicator // : IPlugin
+    internal class TurretDamageIndicator  //: IPlugin
     {
         #region Properties
 
