@@ -441,7 +441,7 @@
                     Spells.Where(
                         x => x.Slot.IsReady() && x.ChampionName.Equals(Player.ChampionName, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    if (Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health)
+                    if (Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health && !mob.CharData.BaseSkinName.ToLower().Contains("crab"))
                     {
                         if (mob.IsValidTarget(SmiteSpell.Range))
                         {
