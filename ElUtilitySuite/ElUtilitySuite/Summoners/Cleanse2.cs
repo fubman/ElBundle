@@ -5,6 +5,8 @@
     using System.Drawing;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
+
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -386,7 +388,7 @@
                     ally.Buffs.Where(
                         x =>
                             this.BuffsToCleanse.Contains(x.Type) && x.Caster.Type == GameObjectType.obj_AI_Hero
-                            && x.Caster.IsEnemy))
+                            && x.Caster.IsEnemy && x.Type != BuffType.Knockback && x.Type != BuffType.Knockup))
                 {
                     if (!Menu.Item($"3Cleanse{buff.Type}").IsActive()
                         || Menu.Item("MinDuration").GetValue<Slider>().Value / 1000f > buff.EndTime - buff.StartTime

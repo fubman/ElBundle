@@ -104,7 +104,6 @@
                 foreach (var ally in HeroManager.Allies)
                 {
                     IncomingDamageManager.AddChampion(ally);
-                    Logging.Logging.AddEntry(LoggingEntryType.Info, "@Entry.cs: Loading champions: {0}", ally.ChampionName);
                 }
 
                 menu.AddItem(new MenuItem("seperator1", ""));
