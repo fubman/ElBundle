@@ -6,6 +6,8 @@
     using System.Reflection;
     using System.Security.Permissions;
 
+    using ElUtilitySuite.Logging;
+
     using LeagueSharp;
     using LeagueSharp.Common;
     using LeagueSharp.Data;
@@ -205,7 +207,7 @@
 
             JungleTracker.CampDied += this.JungleTrackerCampDied;
             Obj_AI_Base.OnTeleport += this.OnTeleport;
-            //Obj_AI_Base.OnBuffRemove += this.OnBuffRemove;
+            Obj_AI_Base.OnBuffRemove += this.OnBuffRemove;
 
             Drawing.OnPreReset += args =>
             {
@@ -251,7 +253,8 @@
                 }
                 catch (Exception)
                 {
-                    Console.WriteLine($"Failed to find load image for {name}. Please notify jQuery/ChewyMoon!");
+                    Logging.AddEntry(LoggingEntryType.Error, "@SpellCountDownTracker.cs: Failed to find load image for {0} Please notify jQuery/ChewyMoon!", name);
+                    throw;
                 }
             }
 
@@ -277,34 +280,42 @@
         /// <param name="args"></param>
         private void OnBuffRemove(Obj_AI_Base sender, Obj_AI_BaseBuffRemoveEventArgs args)
         {
-            if (sender.IsEnemy)
+            try
             {
-                if (args.Buff.Name.Equals("rebirthready", StringComparison.InvariantCultureIgnoreCase))
+                if (sender.IsEnemy)
                 {
-                    var card = new Card
+                    if (args.Buff.Name.Equals("rebirthready", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        EndTime = Game.Time + 240,
-                        EndMessage = "Ready",
-                        FriendlyName = "Rebirth",
-                        StartTime = Game.Time
-                    };
-                    card.Name = "Rebirthready";
-                    this.Cards.Add(card);
-                }
+                        var card = new Card
+                        {
+                            EndTime = Game.Time + 240,
+                            EndMessage = "Ready",
+                            FriendlyName = "Rebirth",
+                            StartTime = Game.Time
+                        };
+                        card.Name = "Rebirthready";
+                        this.Cards.Add(card);
+                    }
 
-                if (args.Buff.Name.Equals("zacrebirthready", StringComparison.InvariantCultureIgnoreCase))
-                {
-                    var card = new Card
+                    if (args.Buff.Name.Equals("zacrebirthready", StringComparison.InvariantCultureIgnoreCase))
                     {
-                        EndTime = Game.Time + 300,
-                        EndMessage = "Ready",
-                        FriendlyName = "Cell Division",
-                        StartTime = Game.Time
-                    };
+                        var card = new Card
+                        {
+                            EndTime = Game.Time + 300,
+                            EndMessage = "Ready",
+                            FriendlyName = "Cell Division",
+                            StartTime = Game.Time
+                        };
 
-                    card.Name = "Zacrebirthready";
-                    this.Cards.Add(card);
+                        card.Name = "Zacrebirthready";
+                        this.Cards.Add(card);
+                    }
                 }
+            }
+            catch (Exception e)
+            {
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellCountDownTracker.cs: An error occurred: {0}", e);
+                throw;
             }
         }
 
@@ -351,7 +362,8 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellCountDownTracker.cs: An error occurred: {0}", e);
+                throw;
             }
         }
 
