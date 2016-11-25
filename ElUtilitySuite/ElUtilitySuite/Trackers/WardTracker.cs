@@ -548,7 +548,7 @@
 
         #endregion
 
-        private struct WardStruct
+        private class WardStruct
         {
             #region Fields
 
