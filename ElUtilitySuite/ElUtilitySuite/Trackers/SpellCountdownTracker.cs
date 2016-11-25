@@ -581,7 +581,7 @@
                 }
                 else
                 {
-                    DrawBox(iconStart, 52, 52, Color.White, 0, new Color());
+                    DrawBox(iconStart, 52, 52, Color.Black, 0, new Color());
                 }
 
                 // draw countdown, add [icon size + padding]
