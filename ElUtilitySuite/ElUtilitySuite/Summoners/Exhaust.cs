@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
+
     using LeagueSharp;
     using LeagueSharp.Common;
     using LeagueSharp.Data;
@@ -133,9 +135,9 @@
 
                 Random = new Random(Environment.TickCount);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.WriteLine($"Failed to load exhaust");
+                Logging.AddEntry(LoggingEntryType.Error, "@Exhaust.cs: An error occurred: {0}", e);
             }
         }
 
@@ -164,7 +166,7 @@
             if (this.ExhaustSpell.IsReady())
             {
                Utility.DelayAction.Add(Random.Next(50, 100), () => this.ExhaustSpell.Cast(sender));
-               Console.WriteLine($"Use exhaust on: {sender.CharData.BaseSkinName} - for spell {args.SData.Name}");
+               Logging.AddEntry(LoggingEntryType.Debug, "@Exhaust.cs: Use exhaust on: {0} - for spell {1}", sender.CharData.BaseSkinName, args.SData.Name);
             }
         }
 

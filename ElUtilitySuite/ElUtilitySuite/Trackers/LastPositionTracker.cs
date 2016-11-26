@@ -6,6 +6,7 @@ namespace ElUtilitySuite.Trackers
     using System.Drawing;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
     using ElUtilitySuite.Properties;
     using ElUtilitySuite.Vendor.SFX;
 
@@ -293,7 +294,7 @@ namespace ElUtilitySuite.Trackers
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@LastPositionTracker.cs: An error occurred: {0}", e);
             }
         }
 
@@ -328,7 +329,7 @@ namespace ElUtilitySuite.Trackers
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@LastPositionTracker.cs: An error occurred: {0}", e);
             }
         }
 

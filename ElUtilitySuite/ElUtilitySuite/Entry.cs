@@ -1,4 +1,5 @@
-﻿namespace ElUtilitySuite
+﻿#pragma warning disable 67
+namespace ElUtilitySuite
 {
     using System;
     using System.Drawing;

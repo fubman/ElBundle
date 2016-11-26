@@ -1,4 +1,5 @@
-﻿namespace ElUtilitySuite.Trackers
+﻿#pragma warning disable 618
+namespace ElUtilitySuite.Trackers
 {
     using System;
     using System.Collections.Generic;
@@ -6,6 +7,7 @@
     using System.Linq;
     using System.Security.Permissions;
 
+    using ElUtilitySuite.Logging;
     using ElUtilitySuite.Properties;
     using ElUtilitySuite.Vendor.SFX;
 
@@ -386,7 +388,7 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellTracker1.cs: An error occurred: {0}", e);
             }
         }
 
@@ -416,7 +418,7 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellTracker1.cs: An error occurred: {0}", e);
             }
         }
 
@@ -430,7 +432,7 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellTracker1.cs: An error occurred: {0}", e);
             }
             return name;
         }
@@ -565,13 +567,13 @@
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine("An error occurred: '{0}'", e);
+                        Logging.AddEntry(LoggingEntryType.Error, "@SpellTracker1.cs: An error occurred: {0}", e);
                     }
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellTracker1.cs: An error occurred: {0}", e);
             }
         }
 
@@ -608,7 +610,7 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine(e);
+                Logging.AddEntry(LoggingEntryType.Error, "@SpellTracker1.cs: An error occurred: {0}", e);
             }
         }
     }

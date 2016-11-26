@@ -71,7 +71,6 @@
     <Compile Include="Trackers\SpellCountdownTracker.cs" />
     <Compile Include="Trackers\SpellTracker1.cs" />
     <Compile Include="Trackers\WardTracker.cs" />
-    <Compile Include="Utility\TurretDamageIndicator.cs" />
     <Compile Include="Vendor\SFX\BitmapExtensions.cs" />
     <Compile Include="Vendor\SFX\FloatExtensions.cs" />
     <Compile Include="Vendor\SFX\FontExtension.cs" />

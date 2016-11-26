@@ -1,4 +1,5 @@
-﻿namespace ElUtilitySuite.Trackers
+﻿#pragma warning disable 618
+namespace ElUtilitySuite.Trackers
 {
     using System;
     using System.Collections.Generic;

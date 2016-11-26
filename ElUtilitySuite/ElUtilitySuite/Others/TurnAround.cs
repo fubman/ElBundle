@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
+
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -118,7 +120,7 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@TurnAround.cs: An error occurred: {0}", e);
             }
         }
 
@@ -172,7 +174,7 @@
             }
             catch (Exception e)
             {
-                Console.WriteLine("An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@TurnAround.cs: An error occurred: {0}", e);
             }
         }
 

@@ -3,6 +3,8 @@
     using System;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
+
     using LeagueSharp;
     using LeagueSharp.Common;
 
@@ -59,11 +61,18 @@
         /// </summary>
         public void Load()
         {
-            if (
-                !BlacklistedChampions.Any(
-                    x => x.Equals(ObjectManager.Player.ChampionName, StringComparison.InvariantCultureIgnoreCase)))
+            try
             {
-                Obj_AI_Base.OnLevelUp += this.ObjAiBaseOnOnLevelUp;
+                if (
+                    !BlacklistedChampions.Any(
+                        x => x.Equals(ObjectManager.Player.ChampionName, StringComparison.InvariantCultureIgnoreCase)))
+                {
+                    Obj_AI_Base.OnLevelUp += this.ObjAiBaseOnOnLevelUp;
+                }
+            }
+            catch (Exception e)
+            {
+                Logging.AddEntry(LoggingEntryType.Error, "@UltimateLeveler.cs: An error occurred: {0}", e);
             }
         }
 
@@ -78,14 +87,21 @@
         /// <param name="args">The <see cref="EventArgs" /> instance containing the event data.</param>
         private void ObjAiBaseOnOnLevelUp(Obj_AI_Base sender, EventArgs args)
         {
-            if (!sender.IsMe)
+            try
             {
-                return;
-            }
+                if (!sender.IsMe)
+                {
+                    return;
+                }
 
-            if (this.Menu.Item("AutoLevelR").IsActive())
+                if (this.Menu.Item("AutoLevelR").IsActive())
+                {
+                    Utility.DelayAction.Add(random.Next(100, 1000), () => sender.Spellbook.LevelSpell(SpellSlot.R));
+                }
+            }
+            catch (Exception e)
             {
-                Utility.DelayAction.Add(random.Next(100, 1000), () => sender.Spellbook.LevelSpell(SpellSlot.R));
+                Logging.AddEntry(LoggingEntryType.Error, "@UltimateLeveler.cs: An error occurred: {0}", e);
             }
         }
 

@@ -26,6 +26,7 @@
 
 #endregion
 
+#pragma warning disable 414
 namespace ElUtilitySuite.Vendor.SFX
 {
     using System;
