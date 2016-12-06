@@ -65,6 +65,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Items\DefensiveItems\Redemption.cs" />
     <Compile Include="Logging\Logging.cs" />
     <Compile Include="Logging\LoggingEntryType.cs" />
     <Compile Include="Summoners\Cleanse2.cs" />

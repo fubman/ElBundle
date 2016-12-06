@@ -3,6 +3,7 @@
     using System;
     using System.Linq;
 
+    using ElUtilitySuite.Logging;
     using ElUtilitySuite.Vendor.SFX;
 
     using LeagueSharp;
@@ -91,15 +92,12 @@
                         || this.Player.HealthPercent < this.Menu.Item("seraphs-min-health").GetValue<Slider>().Value)
                     {
                         Items.UseItem((int)this.Id, this.Player);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("[ELUTILITYSUITE - SERAPHS] Used for: {0} - health percentage: {1}%", this.Player.ChampionName, (int)this.Player.HealthPercent);
                     }
-                    Console.ForegroundColor = ConsoleColor.White;
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine(@"An error occurred: '{0}'", e);
+                Logging.AddEntry(LoggingEntryType.Error, "@Seraphs.cs: An error occurred: {0}", e);
             }
         }
 
