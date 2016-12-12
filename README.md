@@ -3,7 +3,7 @@ LeagueSharp
 
 LeagueSharp (abbreviated L#) is a tool for League of Legends which allows the user to inject assemblies or so called LoL scripts into the game.
 
-All assemblies released here are written by Nathan 'jQuery'  (https://www.joduska.me/forum/user/71627-/)
+All assemblies released here are written by jQuery (https://www.joduska.me/forum/user/71627-/)
 
 Forum:
 ===========
