@@ -133,7 +133,7 @@ namespace ElUtilitySuite.Vendor.SFX
                 {
                     Directory.CreateDirectory(CacheDir);
                 }
-                string path = Path.Combine(CacheDir, string.Format("{0}", Game.Version.Substring(0, 19)));
+                string path = Path.Combine(CacheDir, $"1{Game.Version.Substring(0, 19)}");
                 if (!Directory.Exists(path))
                 {
                     Directory.CreateDirectory(path);
@@ -143,7 +143,7 @@ namespace ElUtilitySuite.Vendor.SFX
                 {
                     Directory.CreateDirectory(path);
                 }
-                return Path.Combine(path, string.Format("{0}.png", name));
+                return Path.Combine(path, $"{name}.png");
             }
             catch (Exception e)
             {
