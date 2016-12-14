@@ -665,7 +665,6 @@
     <EmbeddedResource Include="Resources\CooldownNotifIcons\Zacrebirthready.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\AurelionSol.png" />
     <None Include="Resources\Darius.png" />
     <None Include="Resources\Evelynn.png" />
     <None Include="Resources\FiddleSticks.png" />
@@ -679,6 +678,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Camille.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AurelionSol.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
