@@ -456,7 +456,10 @@
                         x =>
                         x.ChampionName.Equals(this.Player.ChampionName, StringComparison.InvariantCultureIgnoreCase)))
                 {
-                    if (this.Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health && !mob.CharData.BaseSkinName.ToLower().Contains("crab") && this.Player.Spellbook.GetSpell(spell.Slot).State == SpellState.Ready)
+                    if (this.Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health && 
+                    !mob.CharData.BaseSkinName.ToLower().Contains("crab") && 
+                    this.Player.Spellbook.GetSpell(spell.Slot).State == SpellState.Ready && 
+                    this.Player.Spellbook.CanUseSpell(smiteSpell.Slot) == SpellState.Ready)
                     {
                         if (mob.IsValidTarget(this.SmiteSpell.Range))
                         {
