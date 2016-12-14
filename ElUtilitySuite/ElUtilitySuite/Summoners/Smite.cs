@@ -459,7 +459,7 @@
                     if (this.Player.GetSpellDamage(mob, spell.Slot, spell.Stage) + damage >= mob.Health && 
                     !mob.CharData.BaseSkinName.ToLower().Contains("crab") && 
                     this.Player.Spellbook.GetSpell(spell.Slot).State == SpellState.Ready && 
-                    this.Player.Spellbook.CanUseSpell(SmiteSpell.Slot) == SpellState.Ready)
+                    this.Player.Spellbook.CanUseSpell(this.SmiteSpell.Slot) == SpellState.Ready)
                     {
                         if (mob.IsValidTarget(this.SmiteSpell.Range))
                         {
