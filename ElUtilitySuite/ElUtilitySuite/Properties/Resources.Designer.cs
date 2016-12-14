@@ -143,9 +143,9 @@ namespace ElUtilitySuite.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Aurelionsol {
+        internal static System.Drawing.Bitmap AurelionSol {
             get {
-                object obj = ResourceManager.GetObject("Aurelionsol", resourceCulture);
+                object obj = ResourceManager.GetObject("AurelionSol", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -206,6 +206,16 @@ namespace ElUtilitySuite.Properties {
         internal static System.Drawing.Bitmap Caitlyn {
             get {
                 object obj = ResourceManager.GetObject("Caitlyn", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Camille {
+            get {
+                object obj = ResourceManager.GetObject("Camille", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

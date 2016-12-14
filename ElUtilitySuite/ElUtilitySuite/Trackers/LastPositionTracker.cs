@@ -124,6 +124,7 @@ namespace ElUtilitySuite.Trackers
 
             foreach (var enemy in HeroManager.Enemies)
             {
+                Console.WriteLine("Loading image {0}", enemy.ChampionName);
                 this.heroTextures[enemy.NetworkId] =
                     (ImageLoader.Load("LP", enemy.ChampionName) ?? Resources.LP_Default).ToTexture();
                 var eStruct = new LastPositionStruct(enemy) { LastPosition = this.spawnPoint };
