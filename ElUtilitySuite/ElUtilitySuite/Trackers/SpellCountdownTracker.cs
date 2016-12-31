@@ -425,6 +425,11 @@ namespace ElUtilitySuite.Trackers
 
             var i = 0;
 
+            if (HeroManager.Enemies == null)
+            {
+                return;
+            }
+
             // TODO clean this shit up LMAO
             foreach (var enemy in HeroManager.Enemies)
             {
