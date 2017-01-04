@@ -15,9 +15,7 @@ namespace ElUtilitySuite
     using LeagueSharp.Common;
 
     using Color = SharpDX.Color;
-    /// <summary>
-    ///     Windows clean install, test commit.
-    /// </summary>
+
     internal class Entry
     {
         #region Delegates
