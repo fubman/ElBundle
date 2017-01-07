@@ -267,7 +267,11 @@
 
             if (comboE && spells[Spells.E].IsReady() && Player.Distance(target) < spells[Spells.E].Range)
             {
-                spells[Spells.E].Cast(target);
+                var prediction = spells[Spells.E].GetPrediction(target);
+                if (prediction.Hitchance >= HitChance.VeryHigh)
+                {
+                    spells[Spells.E].Cast(target);
+                }
             }
 
             if (comboW && spells[Spells.W].IsReady())

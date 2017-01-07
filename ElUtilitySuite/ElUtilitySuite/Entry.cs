@@ -48,6 +48,9 @@ namespace ElUtilitySuite
         /// </value>
         public static string ScriptVersion => typeof(Entry).Assembly.GetName().Version.ToString();
 
+        /// <summary>
+        ///     test commit windows clean install kek!
+        /// </summary>
         public static event EventHandler<UnloadEventArgs> OnUnload;
         public class UnloadEventArgs : EventArgs
         {
