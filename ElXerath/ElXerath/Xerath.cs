@@ -261,11 +261,7 @@
                 return;
             }
 
-            var comboQ = ElXerathMenu.Menu.Item("ElXerath.Combo.Q").IsActive();
-            var comboW = ElXerathMenu.Menu.Item("ElXerath.Combo.W").IsActive();
-            var comboE = ElXerathMenu.Menu.Item("ElXerath.Combo.E").IsActive();
-
-            if (comboE && spells[Spells.E].IsReady() && Player.Distance(target) < spells[Spells.E].Range)
+            if (ElXerathMenu.Menu.Item("ElXerath.Combo.E").IsActive() && spells[Spells.E].IsReady() && target.IsValidTarget(spells[Spells.E].Range) && !spells[Spells.Q].IsCharging)
             {
                 var prediction = spells[Spells.E].GetPrediction(target);
                 if (prediction.Hitchance >= HitChance.VeryHigh)
@@ -274,7 +270,7 @@
                 }
             }
 
-            if (comboW && spells[Spells.W].IsReady())
+            if (ElXerathMenu.Menu.Item("ElXerath.Combo.W").IsActive() && spells[Spells.W].IsReady())
             {
                 var prediction = spells[Spells.W].GetPrediction(target);
                 if (prediction.Hitchance >= HitChance.VeryHigh)
@@ -283,7 +279,7 @@
                 }
             }
 
-            if (comboQ && spells[Spells.Q].IsReady() && target.IsValidTarget(spells[Spells.Q].ChargedMaxRange))
+            if (ElXerathMenu.Menu.Item("ElXerath.Combo.Q").IsActive() && spells[Spells.Q].IsReady() && target.IsValidTarget(spells[Spells.Q].ChargedMaxRange))
             {
                 if (!spells[Spells.Q].IsCharging)
                 {
