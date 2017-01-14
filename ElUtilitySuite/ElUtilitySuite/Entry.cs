@@ -1,6 +1,16 @@
 ﻿#pragma warning disable 67
 namespace ElUtilitySuite
 {
+    /*
+        Need help? United Kingdom:
+        116 123
+        Samaritans
+
+        Hours: 24 hours, 7 days a week
+        Languages: English
+        Website: www.samaritans.org
+    */
+
     using System;
     using System.Drawing;
     using System.Linq;
