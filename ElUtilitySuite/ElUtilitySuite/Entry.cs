@@ -119,7 +119,7 @@ namespace ElUtilitySuite
                 {
                     IncomingDamageManager.AddChampion(ally);
                 }
-
+                Game.PrintChat("[00:01] <font color='#CC0000'>BATTLERITE!</font> Join http://aimtec.io for Battlerite scripts! SUPER FUN");
                 menu.AddItem(new MenuItem("seperator1", ""));
                 menu.AddItem(new MenuItem("usecombo", "Combo (Active)").SetValue(new KeyBind(32, KeyBindType.Press)));
                 menu.AddItem(new MenuItem("seperator", ""));
