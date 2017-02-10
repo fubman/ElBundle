@@ -85,6 +85,8 @@
                 return;
             }
 
+                            Game.PrintChat("[00:01] <font color='#CC0000'>BATTLERITE!</font> Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+
             spells[Spells.Q].SetSkillshot(0.6f, 95f, float.MaxValue, false, SkillshotType.SkillshotLine);
             spells[Spells.W].SetSkillshot(0.7f, 125f, float.MaxValue, false, SkillshotType.SkillshotCircle);
             spells[Spells.E].SetSkillshot(0.25f, 60f, 1400f, true, SkillshotType.SkillshotLine);
