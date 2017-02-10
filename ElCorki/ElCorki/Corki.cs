@@ -83,7 +83,8 @@
             }
 
             Console.WriteLine("Injected");
-            Notifications.AddNotification(string.Format("ElCorki by jQuery v{0}", ScriptVersion), 8000);
+
+                            Game.PrintChat("[00:01] <font color='#CC0000'>BATTLERITE!</font> Join http://aimtec.io for Battlerite scripts! SUPER FUN");
 
             spells[Spells.Q].SetSkillshot(0.35f, 250f, 1000f, false, SkillshotType.SkillshotCircle);
             spells[Spells.E].SetSkillshot(0f, (float)(45 * Math.PI / 180), 1500, false, SkillshotType.SkillshotCone);
