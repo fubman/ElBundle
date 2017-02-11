@@ -474,6 +474,8 @@
         {
             try
             {
+                Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Yellow, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+                
                 var smiteActive = InitializeMenu.Menu.Item("ElSmite.Activated").GetValue<KeyBind>().Active;
                 var drawSmite = InitializeMenu.Menu.Item("ElSmite.Draw.Range").GetValue<Circle>();
                 var drawText = InitializeMenu.Menu.Item("ElSmite.Draw.Text").IsActive();
