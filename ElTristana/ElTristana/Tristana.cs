@@ -94,6 +94,8 @@
                 Interrupter2.OnInterruptableTarget += Interrupter2_OnInterruptableTarget;
                 Orbwalking.BeforeAttack += OrbwalkingBeforeAttack;
                 Orbwalking.AfterAttack += OrbwalkingAfterAttack;
+                
+                gameStartTime = Game.Time;
             }
             catch (Exception e)
             {
@@ -296,11 +298,24 @@
         {
             return target.HasBuff("TristanaECharge");
         }
+        
+                private static float gameStartTime = Game.Time;
+
 
         private static void OnDraw(EventArgs args)
         {
           
-            Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Yellow, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+            if (Game.Time - gameStartTime < 15)
+            {
+                var row = 50;
+                for (int i = 0; i < 5; i++)
+                {
+                    row += 25;
+                    Drawing.DrawText(500, row, Color.White, "Join http://aimtec.io for BATTLERITE scripts!");
+                }
+
+                Drawing.DrawText(500, 250, Color.GreenYellow, "YES THIS TEXT WILL FADE AWAY IN A FEW SECONDS!!");
+            }
             
             var target =
                 HeroManager.Enemies.Find(
