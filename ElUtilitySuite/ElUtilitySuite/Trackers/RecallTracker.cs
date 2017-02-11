@@ -148,7 +148,7 @@ namespace ElUtilitySuite.Trackers
             if (Game.Time - gameStartTime < 15)
             {
                 var row = 50;
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 3; i++)
                 {
                     row += 25;
                     Drawing.DrawText(200, row, Color.White, "Join http://aimtec.io for BATTLERITE scripts!");
