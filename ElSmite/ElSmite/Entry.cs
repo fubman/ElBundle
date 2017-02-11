@@ -340,6 +340,8 @@
 
         #region Public Methods and Operators
 
+                    private static float gameStartTime = Game.Time;
+
         public static void OnLoad(EventArgs args)
         {
             try
@@ -354,6 +356,8 @@
                     SmiteSpell = new Spell(smiteSlot.Slot, 570f, TargetSelector.DamageType.True);
                     Drawing.OnDraw += OnDraw;
                     Game.OnUpdate += OnUpdate;
+                    
+                    gameStartTime = Game.Time;
                 }
 
                 InitializeMenu.Load();
@@ -474,7 +478,18 @@
         {
             try
             {
-                Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Yellow, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+
+                 if (Game.Time - gameStartTime < 15)
+            {
+                var row = 50;
+                for (int i = 0; i < 5; i++)
+                {
+                    row += 25;
+                    Drawing.DrawText(800, row, Color.White, "Join http://aimtec.io for BATTLERITE scripts!");
+                }
+
+                Drawing.DrawText(800, 250, Color.GreenYellow, "YES THIS TEXT WILL FADE AWAY IN A FEW SECONDS!!");
+            }
                 
                 var smiteActive = InitializeMenu.Menu.Item("ElSmite.Activated").GetValue<KeyBind>().Active;
                 var drawSmite = InitializeMenu.Menu.Item("ElSmite.Draw.Range").GetValue<Circle>();
