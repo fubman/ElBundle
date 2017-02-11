@@ -140,7 +140,7 @@ namespace ElUtilitySuite.Trackers
 
         private void Drawing_OnDraw(EventArgs args)
         {
-            Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Yellow, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+            Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Green, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
            
            if (!this.Menu.Item("showRecalls").GetValue<bool>() || Drawing.Direct3DDevice == null
                 || Drawing.Direct3DDevice.IsDisposed)
