@@ -300,6 +300,8 @@
         private static void OnDraw(EventArgs args)
         {
           
+            Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Yellow, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+            
             var target =
                 HeroManager.Enemies.Find(
                     x => x.HasBuff("TristanaECharge") && x.IsValidTarget(2000));
