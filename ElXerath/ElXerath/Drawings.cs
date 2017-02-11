@@ -13,6 +13,8 @@
 
         public static void Drawing_OnDraw(EventArgs args)
         {
+            Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Yellow, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
+            
             var drawOff = ElXerathMenu.Menu.Item("ElXerath.Draw.off").GetValue<bool>();
             var drawQ = ElXerathMenu.Menu.Item("ElXerath.Draw.Q").GetValue<Circle>();
             var drawW = ElXerathMenu.Menu.Item("ElXerath.Draw.W").GetValue<Circle>();
