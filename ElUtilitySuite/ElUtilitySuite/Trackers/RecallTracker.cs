@@ -1,4 +1,4 @@
-﻿
+
 #pragma warning disable 618
 
 namespace ElUtilitySuite.Trackers
@@ -127,6 +127,8 @@ namespace ElUtilitySuite.Trackers
             Drawing.OnPostReset += args => { this.Text.OnResetDevice(); };
             AppDomain.CurrentDomain.DomainUnload += this.CurrentDomainDomainUnload;
             AppDomain.CurrentDomain.ProcessExit += this.CurrentDomainDomainUnload;
+
+            gameStartTime = Game.Time;
         }
 
         #endregion
@@ -138,11 +140,24 @@ namespace ElUtilitySuite.Trackers
             this.Text.Dispose();
         }
 
+        private static float gameStartTime = Game.Time;
+       
         private void Drawing_OnDraw(EventArgs args)
         {
-            Drawing.DrawText( Drawing.Width * 0.70f, Drawing.Height * 0.95f, Color.Green, "Join http://aimtec.io for Battlerite scripts! SUPER FUN");
-           
-           if (!this.Menu.Item("showRecalls").GetValue<bool>() || Drawing.Direct3DDevice == null
+
+            if (Game.Time - gameStartTime < 15)
+            {
+                var row = 50;
+                for (int i = 0; i < 5; i++)
+                {
+                    row += 25;
+                    Drawing.DrawText(200, row, Color.White, "Join http://aimtec.io for BATTLERITE scripts!");
+                }
+
+                Drawing.DrawText(200, 250, Color.GreenYellow, "YES THIS TEXT WILL FADE AWAY IN A FEW SECONDS!!");
+            }
+
+            if (!this.Menu.Item("showRecalls").GetValue<bool>() || Drawing.Direct3DDevice == null
                 || Drawing.Direct3DDevice.IsDisposed)
             {
                 return;
