@@ -50,6 +50,7 @@ namespace Elvarus
 
         #region Public Methods and Operators
 
+        private static float gameStartTime = Game.Time;
         public static void Game_OnGameLoad(EventArgs args)
         {
             if (ObjectManager.Player.ChampionName != "Varus")
@@ -66,12 +67,30 @@ namespace Elvarus
             ElVarusMenu.Initialize();
             Game.OnUpdate += OnGameUpdate;
             Drawing.OnDraw += Drawings.Drawing_OnDraw;
+            Drawing.OnDraw += Drawing_OnDraw;
+            gameStartTime = Game.Time;
         }
 
         #endregion
 
         #region Methods
 
+        private void Drawing_OnDraw(EventArgs args)
+        {
+
+            if (Game.Time - gameStartTime < 15)
+            {
+                var row = 50;
+                for (int i = 0; i < 5; i++)
+                {
+                    row += 25;
+                    Drawing.DrawText(800, row, Color.White, "Join http://aimtec.io for BATTLERITE scripts!");
+                }
+
+                Drawing.DrawText(800, 250, Color.GreenYellow, "YES THIS TEXT WILL FADE AWAY IN A FEW SECONDS!!");
+            }
+        }
+        
         private static void Combo()
         {
             var target = TargetSelector.GetTarget(
